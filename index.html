@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+<style>html,body{margin:0;background:#ffffff;color:#091E39;font-family:Ubuntu,system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:#00408C}a:hover{color:#006B8C}*:focus-visible{outline:2px solid #008C80;outline-offset:2px}</style>
+</helmet>
+<div style="background:#ffffff;color:#091E39;font-family:Ubuntu,system-ui,sans-serif">
+
+  <section data-screen-label="Hero" style="position:relative;min-height:min(100vh,900px);display:flex;flex-direction:column;overflow:hidden;background:#00138C">
+    <div style="position:absolute;top:0;bottom:0;right:0;width:min(62%,1100px);border-radius:50% 0 0 50% / 62% 0 0 62%;overflow:hidden">
+      <img src="assets/hero-picada-2.jpeg" alt="Vista en picada del estacionamiento de la UNLaM con dos estudiantes que se encuentran" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:80% center"></img>
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,19,140,0.55) 0%,rgba(0,19,140,0) 35%),linear-gradient(180deg,rgba(0,19,140,0.45) 0%,rgba(0,19,140,0) 18%)"></div>
+    </div>
+    <header style="position:relative;z-index:2;max-width:1280px;width:100%;margin:0 auto;box-sizing:border-box;padding:24px clamp(20px,5vw,64px);display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <a href="#" style="display:flex;align-items:center;gap:10px;color:#ffffff;text-decoration:none;margin-right:auto;font-size:30px;font-weight:500;letter-spacing:0.01em">
+        <img src="assets/logo-viante.png" alt="" style="width:56px;height:auto"></img>Viante
+      </a>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#" style="border:2px solid #ffffff;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:10px 22px;border-radius:999px" style-hover="background:rgba(255,255,255,0.12);color:#ffffff">Iniciar sesión</a>
+        <a href="registrate.html" style="background:#00408C;border:2px solid #00408C;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:10px 22px;border-radius:999px" style-hover="background:#006B8C;border-color:#006B8C;color:#ffffff">Registrate</a>
+      </div>
+    </header>
+    <div style="position:relative;z-index:2;flex:1;max-width:1280px;width:100%;margin:0 auto;box-sizing:border-box;padding:32px clamp(20px,5vw,64px) 88px;display:flex;flex-wrap:wrap;align-items:center;gap:40px clamp(32px,5vw,72px)">
+      <div style="flex:1 1 340px;display:flex;flex-direction:column;gap:28px;align-items:flex-start">
+        <h1 style="margin:0;color:#ffffff;font-weight:700;font-size:40px;line-height:1.1;letter-spacing:-0.01em;max-width:13ch">La facu queda más cerca si vamos juntos</h1>
+        <p style="margin:0;color:#ffffff;font-family:'Source Serif 4',Georgia,serif;font-size:22.4px;line-height:1.45;max-width:30ch;text-wrap:pretty">Coordiná tu viaje con estudiantes y profesores que van a tu misma facu, a tu mismo horario</p>
+        <div style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+          <a href="registrate.html" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:#008C80;color:#ffffff;text-decoration:none;padding:14px 30px;border-radius:999px" style-hover="background:#006B8C;color:#ffffff">
+            <span style="font-weight:700;font-size:18px">Busco lugar</span>
+            <span style="font-size:13px;font-weight:400">Pasajero</span>
+          </a>
+          <a href="registrate.html" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:transparent;color:#ffffff;border:2px solid #ffffff;text-decoration:none;padding:12px 28px;border-radius:999px" style-hover="background:rgba(255,255,255,0.12);color:#ffffff">
+            <span style="font-weight:700;font-size:18px">Ofrezco lugar</span>
+            <span style="font-size:13px;font-weight:400">Conductor</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div ref="{{ roadRef }}" style="position:relative;max-width:1280px;margin:0 auto;padding:0 clamp(12px,3vw,40px) 0 0;box-sizing:border-box">
+    <svg ref="{{ svgRef }}" aria-hidden="true" style="position:absolute;left:0;top:0;width:clamp(72px,11vw,150px);height:100%;overflow:visible;pointer-events:none;z-index:1">
+      <path ref="{{ roadPath }}" d="" fill="none" stroke="#373E4A" stroke-width="30" stroke-linecap="round"></path>
+      <path ref="{{ lanePath }}" d="" fill="none" stroke="#DADADA" stroke-width="3" stroke-dasharray="12 14" stroke-linecap="round"></path>
+      <path ref="{{ progPath }}" d="" fill="none" stroke="#008C80" stroke-width="5" stroke-linecap="round"></path>
+    </svg>
+    <div ref="{{ carRef }}" style="position:absolute;left:0;top:0;width:clamp(64px,7vw,92px);z-index:3;pointer-events:none;will-change:transform;filter:drop-shadow(0 8px 10px rgba(9,30,57,0.35))">
+      <span data-light="" aria-hidden="true" style="position:absolute;left:8%;top:62%;width:84%;height:90%;background:radial-gradient(ellipse 50% 60% at 50% 0%,rgba(255,236,140,0.45) 0%,rgba(255,236,140,0) 70%);opacity:0;transition:opacity .35s ease;z-index:-1"></span>
+      <img src="assets/auto.png" alt="" style="display:block;width:100%;height:auto"></img>
+      <span data-light="" style="position:absolute;left:18.1%;top:52.2%;width:10.4%;height:13%;border-radius:50%;background:#FFF4B8;box-shadow:0 0 6px 2px rgba(255,236,140,0.95),0 0 18px 8px rgba(255,226,110,0.55);opacity:0;transition:opacity .35s ease"></span><span data-light="" style="position:absolute;left:71.3%;top:52.2%;width:10.4%;height:13%;border-radius:50%;background:#FFF4B8;box-shadow:0 0 6px 2px rgba(255,236,140,0.95),0 0 18px 8px rgba(255,226,110,0.55);opacity:0;transition:opacity .35s ease"></span>
+      <svg data-belt="" viewBox="0 0 421 337" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;opacity:0;transition:opacity .3s ease;z-index:2">
+        <g fill="none" stroke-linecap="round">
+          <path data-strap="" d="M201 121 L158 147" stroke="#091E39" stroke-width="9" stroke-dasharray="60" stroke-dashoffset="60" style="transition:stroke-dashoffset .6s ease .1s"></path>
+          <path data-strap="" d="M201 121 L158 147" stroke="#DADADA" stroke-width="5" stroke-dasharray="60" stroke-dashoffset="60" style="transition:stroke-dashoffset .6s ease .1s"></path>
+          <path data-strap="" d="M266 121 L223 147" stroke="#091E39" stroke-width="9" stroke-dasharray="60" stroke-dashoffset="60" style="transition:stroke-dashoffset .6s ease .25s"></path>
+          <path data-strap="" d="M266 121 L223 147" stroke="#DADADA" stroke-width="5" stroke-dasharray="60" stroke-dashoffset="60" style="transition:stroke-dashoffset .6s ease .25s"></path>
+        </g>
+      </svg>
+      <span data-seat="" style="position:absolute;left:50.8%;top:24.5%;width:14.6%;height:19.6%;border-radius:40% 40% 8% 8%;background:#1E3301;transition:opacity .5s ease"></span>
+    </div>
+
+    <section data-screen-label="Parada 1 Registrate" style="display:grid;grid-template-columns:clamp(72px,11vw,150px) minmax(0,1fr);gap:clamp(12px,3vw,40px);padding:120px 0 80px">
+      <div style="display:flex;justify-content:center;align-items:flex-start"><div data-stop="1" style="position:relative;z-index:1;width:46px;height:46px;border-radius:50%;background:#ffffff;border:5px solid #373E4A;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#091E39;transition:background .3s,border-color .3s">1</div></div>
+      <div style="display:flex;flex-direction:column;gap:28px;min-width:0">
+        <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+          <span style="background:#008C80;color:#ffffff;font-weight:700;font-size:13px;letter-spacing:0.1em;padding:7px 14px;border-radius:999px">PARADA 1. REGISTRATE</span>
+          <h2 style="margin:0;font-weight:700;font-size:28px;line-height:1.2">Tres pasos y arrancás</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;align-items:stretch">
+          <div onClick="{{ r0.pick }}" style="cursor:pointer;min-height:420px;border-radius:28px;border:2px solid {{ r0.border }};background:#ffffff;padding:20px;display:flex;flex-direction:column;gap:16px;transition:border-color .4s">
+            <div aria-hidden="true" style="position:relative;height:64px;border-radius:16px;background:linear-gradient(180deg,#00138C 0%,#006B8C 100%);overflow:hidden"><img src="assets/logo-viante.png" alt="" style="position:absolute;left:42%;top:18%;width:34px;height:auto;opacity:1"></img></div>
+            <span style="display:flex;align-items:center;gap:10px"><span style="flex:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:{{ r0.dotBg }};color:{{ r0.dotFg }};transition:background .4s">{{ r0.mark }}</span><h3 style="margin:0;font-size:22.4px;line-height:1.2;font-weight:700;color:{{ r0.title }}">Creá tu cuenta</h3></span>
+            <sc-if value="{{ r0.isDone }}" hint-placeholder-val="{{ false }}">
+              <span style="display:flex;align-items:center;gap:8px;align-self:flex-start;background:#E3F3F1;color:#006B5F;font-weight:700;font-size:15px;padding:8px 14px;border-radius:999px">✔ Cuenta creada</span>
+            </sc-if>
+            <sc-if value="{{ r0.showContent }}" hint-placeholder-val="{{ true }}">
+              <div aria-hidden="true" style="position:relative;flex:1;display:flex;flex-direction:column;gap:12px;pointer-events:none;user-select:none;opacity:{{ r0.contentOpacity }};filter:saturate({{ r0.contentSat }});transition:opacity .5s,filter .5s"><span style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+  <span style="display:flex;flex-direction:column;padding:10px 14px;border-radius:16px;border:2px solid #008C80;background:#E3F3F1"><span style="font-weight:700;font-size:15px">Pasajero</span><span style="font-size:12px">Busco lugar</span></span>
+  <span style="display:flex;flex-direction:column;padding:10px 14px;border-radius:16px;border:2px solid #DADADA"><span style="font-weight:700;font-size:15px">Conductor</span><span style="font-size:12px">Ofrezco lugar</span></span>
+</span>
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700;color:#091E39">Nombre y apellido</span><span style="display:block;padding:10px 16px;border-radius:999px;border:2px solid #DADADA;font-size:14px;color:#091E39;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Lourdes Ferrari</span></span><span style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700;color:#091E39">Mail de la facultad</span><span style="display:block;padding:10px 16px;border-radius:999px;border:2px solid #DADADA;font-size:14px;color:#091E39;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">lferrari@alumno.unlam.edu.ar</span></span><span style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700;color:#091E39">Contraseña</span><span style="display:block;padding:10px 16px;border-radius:999px;border:2px solid #DADADA;font-size:14px;color:#091E39;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">••••••••</span></span>
+<span style="align-self:flex-start;margin-top:auto;background:#00408C;color:#ffffff;font-weight:700;font-size:15px;padding:11px 26px;border-radius:999px">Siguiente</span></div>
+            </sc-if>
+            <sc-if value="{{ r0.isPending }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.5;color:#7A8494">Elegí si buscás o ofrecés lugar y completá tus datos.</p>
+            </sc-if>
+          </div>
+          <div onClick="{{ r1.pick }}" style="cursor:pointer;min-height:420px;border-radius:28px;border:2px solid {{ r1.border }};background:#ffffff;padding:20px;display:flex;flex-direction:column;gap:16px;transition:border-color .4s">
+            <div aria-hidden="true" style="position:relative;height:64px;border-radius:16px;background:linear-gradient(180deg,#00138C 0%,#006B8C 100%);overflow:hidden"><img src="assets/logo-viante.png" alt="" style="position:absolute;left:48%;top:10%;width:30px;height:auto;opacity:1"></img><img src="assets/logo-viante.png" alt="" style="position:absolute;left:32%;top:44%;width:26px;height:auto;opacity:0.85"></img></div>
+            <span style="display:flex;align-items:center;gap:10px"><span style="flex:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:{{ r1.dotBg }};color:{{ r1.dotFg }};transition:background .4s">{{ r1.mark }}</span><h3 style="margin:0;font-size:22.4px;line-height:1.2;font-weight:700;color:{{ r1.title }}">Verificá tu mail</h3></span>
+            <sc-if value="{{ r1.isDone }}" hint-placeholder-val="{{ false }}">
+              <span style="display:flex;align-items:center;gap:8px;align-self:flex-start;background:#E3F3F1;color:#006B5F;font-weight:700;font-size:15px;padding:8px 14px;border-radius:999px">✔ Mail verificado</span>
+            </sc-if>
+            <sc-if value="{{ r1.showContent }}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position:relative;flex:1;display:flex;flex-direction:column;gap:12px;pointer-events:none;user-select:none;opacity:{{ r1.contentOpacity }};filter:saturate({{ r1.contentSat }});transition:opacity .5s,filter .5s"><span style="font-family:'Source Serif 4',Georgia,serif;font-size:15px;line-height:1.5;color:#373E4A">Te enviamos un número de acceso a lferrari@alumno.unlam.edu.ar</span>
+<span style="display:flex;gap:6px"><span style="flex:1;height:44px;border-radius:12px;border:2px solid #00408C;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#091E39">4</span><span style="flex:1;height:44px;border-radius:12px;border:2px solid #00408C;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#091E39">8</span><span style="flex:1;height:44px;border-radius:12px;border:2px solid #00408C;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#091E39">2</span><span style="flex:1;height:44px;border-radius:12px;border:2px solid #00408C;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#091E39">1</span><span style="flex:1;height:44px;border-radius:12px;border:2px solid #00408C;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#091E39">9</span><span style="flex:1;height:44px;border-radius:12px;border:2px solid #00408C;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#091E39">3</span></span>
+<span style="font-size:13px;font-weight:700;color:#00408C;text-decoration:underline">Reenviar número</span>
+<span style="align-self:flex-start;margin-top:auto;background:#00408C;color:#ffffff;font-weight:700;font-size:15px;padding:11px 26px;border-radius:999px">Verificar</span></div>
+            </sc-if>
+            <sc-if value="{{ r1.isPending }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.5;color:#7A8494">Te llega un número de acceso a tu mail @alumno.unlam.edu.ar.</p>
+            </sc-if>
+          </div>
+          <div onClick="{{ r2.pick }}" style="cursor:pointer;min-height:420px;border-radius:28px;border:2px solid {{ r2.border }};background:#ffffff;padding:20px;display:flex;flex-direction:column;gap:16px;transition:border-color .4s">
+            <div aria-hidden="true" style="position:relative;height:64px;border-radius:16px;background:linear-gradient(180deg,#00138C 0%,#006B8C 100%);overflow:hidden"><img src="assets/logo-viante.png" alt="" style="position:absolute;left:56%;top:6%;width:28px;height:auto;opacity:1"></img><img src="assets/logo-viante.png" alt="" style="position:absolute;left:40%;top:36%;width:24px;height:auto;opacity:0.9"></img><img src="assets/logo-viante.png" alt="" style="position:absolute;left:72%;top:36%;width:24px;height:auto;opacity:0.9"></img><img src="assets/logo-viante.png" alt="" style="position:absolute;left:24%;top:62%;width:20px;height:auto;opacity:0.75"></img><img src="assets/logo-viante.png" alt="" style="position:absolute;left:88%;top:62%;width:20px;height:auto;opacity:0.75"></img></div>
+            <span style="display:flex;align-items:center;gap:10px"><span style="flex:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:{{ r2.dotBg }};color:{{ r2.dotFg }};transition:background .4s">{{ r2.mark }}</span><h3 style="margin:0;font-size:22.4px;line-height:1.2;font-weight:700;color:{{ r2.title }}">Verificá tu identidad</h3></span>
+            <sc-if value="{{ r2.isDone }}" hint-placeholder-val="{{ false }}">
+              <span style="display:flex;align-items:center;gap:8px;align-self:flex-start;background:#E3F3F1;color:#006B5F;font-weight:700;font-size:15px;padding:8px 14px;border-radius:999px">✔ DNI cargado</span>
+            </sc-if>
+            <sc-if value="{{ r2.showContent }}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position:relative;flex:1;display:flex;flex-direction:column;gap:12px;pointer-events:none;user-select:none;opacity:{{ r2.contentOpacity }};filter:saturate({{ r2.contentSat }});transition:opacity .5s,filter .5s"><span style="font-family:'Source Serif 4',Georgia,serif;font-size:15px;line-height:1.5;color:#373E4A">Subí una foto de tu DNI por cuestión de seguridad</span>
+<span style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:16px;border:2px dashed #008C80;background:#F2FAF9"><span style="font-weight:700;font-size:14px">Frente del DNI</span><span style="font-size:13px;font-weight:700;color:#006B5F">✔ Cargado</span></span>
+<span style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:16px;border:2px dashed #B4C3D6;background:#F6F8FB"><span style="font-weight:700;font-size:14px">Dorso del DNI</span><span style="font-size:13px;font-weight:700;color:#ffffff;background:#00408C;padding:6px 14px;border-radius:999px">Cargar</span></span>
+<span style="font-size:13px;color:#373E4A">Foto nítida, sin reflejos y con los cuatro bordes a la vista.</span>
+<span style="align-self:flex-start;margin-top:auto;background:#008C80;color:#ffffff;font-weight:700;font-size:15px;padding:11px 26px;border-radius:999px">Finalizar</span></div>
+            </sc-if>
+            <sc-if value="{{ r2.isPending }}" hint-placeholder-val="{{ true }}">
+              <p style="margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.5;color:#7A8494">Subí una foto de tu DNI por cuestión de seguridad</p>
+            </sc-if>
+          </div>
+        </div>
+        <a href="registrate.html" style="align-self:flex-start;background:#00408C;color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px" style-hover="background:#006B8C;color:#ffffff">Registrate</a>
+      </div>
+    </section>
+
+    <section data-screen-label="Parada 2 Buscá o cedé" style="display:grid;grid-template-columns:clamp(72px,11vw,150px) minmax(0,1fr);gap:clamp(12px,3vw,40px);padding:80px 0">
+      <div style="display:flex;justify-content:center;align-items:flex-start"><div data-stop="2" style="position:relative;z-index:1;width:46px;height:46px;border-radius:50%;background:#ffffff;border:5px solid #373E4A;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#091E39;transition:background .3s,border-color .3s">2</div></div>
+      <div style="display:flex;flex-direction:column;gap:28px;min-width:0">
+        <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+          <span style="background:#008C80;color:#ffffff;font-weight:700;font-size:13px;letter-spacing:0.1em;padding:7px 14px;border-radius:999px">PARADA 2 • BUSCÁ O CEDÉ TU LUGAR</span>
+          <h2 style="margin:0;font-weight:700;font-size:28px;line-height:1.2;max-width:20ch">Te mostramos quién de tu facu hace tu recorrido.</h2>
+        </div>
+        <div role="tablist" style="display:flex;gap:6px;padding:6px;border-radius:999px;background:#EEF3F9;align-self:flex-start;flex-wrap:wrap">
+          <sc-for list="{{ modes }}" as="m" hint-placeholder-count="2">
+            <button role="tab" onClick="{{ m.pick }}" style="font:inherit;display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:10px 22px;border-radius:999px;border:0;cursor:pointer;background:{{ m.bg }};color:{{ m.fg }}">
+              <span style="font-weight:700;font-size:16px">{{ m.title }}</span>
+              <span style="font-size:13px">{{ m.sub }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="background:#00138C;border-radius:28px;padding:clamp(20px,3vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:24px;pointer-events:none;user-select:none">
+          <sc-for list="{{ ill.steps }}" as="q" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:14px;color:#ffffff">
+              <span style="display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:#008C80;display:flex;align-items:center;justify-content:center;font-size:13px">{{ q.n }}</span>{{ q.q }}</span>
+              <sc-if value="{{ q.isPill }}" hint-placeholder-val="{{ true }}">
+                <span style="display:flex;align-items:center;gap:8px;background:#ffffff;color:#091E39;border-radius:999px;padding:12px 18px;font-size:15px;font-weight:500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00408C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ q.pill }}</span>
+              </sc-if>
+              <sc-if value="{{ q.isChips }}" hint-placeholder-val="{{ false }}">
+                <span style="display:flex;gap:6px;flex-wrap:wrap">
+                  <sc-for list="{{ q.chips }}" as="c" hint-placeholder-count="3">
+                    <span style="border:2px solid {{ c.border }};background:{{ c.bg }};border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500">{{ c.label }}</span>
+                  </sc-for>
+                </span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="border:2px solid #00408C;border-radius:28px;background:#ffffff;padding:clamp(16px,2.5vw,24px);display:flex;flex-wrap:wrap;gap:20px;align-items:center;pointer-events:none;user-select:none">
+          <svg viewBox="0 0 220 120" style="flex:0 0 auto;width:min(100%,220px);height:auto;border-radius:18px;background:#EEF3F9;display:block">
+            <g stroke="#ffffff" stroke-width="4" fill="none"><path d="M0 30 H220"></path><path d="M0 85 H220"></path><path d="M55 0 V120"></path><path d="M150 0 V120"></path></g>
+            <path d="M10 110 C 60 100, 70 60, 120 55 S 190 30, 205 14" fill="none" stroke="#00408C" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 9" opacity="0.35"></path>
+            <path d="M10 110 C 60 100, 70 60, 120 55" fill="none" stroke="#00408C" stroke-width="5" stroke-linecap="round"></path>
+            <circle cx="120" cy="55" r="16" fill="#008C80" fill-opacity="0.18"></circle>
+            <circle cx="120" cy="55" r="7" fill="#008C80" stroke="#ffffff" stroke-width="3"></circle>
+            <circle cx="205" cy="14" r="9" fill="#00138C"></circle>
+            <g transform="translate(199.6 8.6) scale(0.45)" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 3.5 21 9Z"></path><path d="M6 9v8.5"></path><path d="M10 9v8.5"></path><path d="M14 9v8.5"></path><path d="M18 9v8.5"></path><path d="M2 21h20"></path></g>
+            <rect x="80" y="70" width="34" height="18" rx="9" fill="#00138C"></rect>
+            <text x="97" y="83" text-anchor="middle" style="font-family:Ubuntu,sans-serif;font-size:10px;font-weight:700;fill:#ffffff">{{ ill.match.pin }}</text>
+          </svg>
+          <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:10px;min-width:0">
+            <span style="align-self:flex-start;background:#E3F3F1;color:#006B5F;font-weight:700;font-size:12px;letter-spacing:0.08em;padding:5px 12px;border-radius:999px">{{ ill.match.kicker }}</span>
+            <span style="display:flex;align-items:center;gap:12px">
+              <span style="flex:none;width:44px;height:44px;border-radius:50%;background:{{ ill.match.color }};color:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">{{ ill.match.ini }}</span>
+              <span style="font-size:20px;font-weight:700;line-height:1.25;color:#091E39">{{ ill.match.title }}</span>
+            </span>
+            <span style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ ill.match.meta }}" as="mt" hint-placeholder-count="3">
+                <span style="font-size:13px;font-weight:500;color:#00408C;background:#EEF3F9;padding:6px 12px;border-radius:999px">{{ mt }}</span>
+              </sc-for>
+            </span>
+          </div>
+        </div>
+        <a href="registrate.html" style="align-self:flex-start;background:#00408C;color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px" style-hover="background:#006B8C;color:#ffffff">{{ ill.cta }}</a>
+      </div>
+    </section>
+
+    <section data-screen-label="Parada 3 Viajá seguro" style="display:grid;grid-template-columns:clamp(72px,11vw,150px) minmax(0,1fr);gap:clamp(12px,3vw,40px);padding:80px 0 120px">
+      <div style="display:flex;justify-content:center;align-items:flex-start"><div data-stop="3" style="position:relative;z-index:1;width:46px;height:46px;border-radius:50%;background:#ffffff;border:5px solid #373E4A;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#091E39;transition:background .3s,border-color .3s">3</div></div>
+      <div style="display:flex;flex-direction:column;gap:28px;min-width:0">
+        <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+          <span style="background:#008C80;color:#ffffff;font-weight:700;font-size:13px;letter-spacing:0.1em;padding:7px 14px;border-radius:999px">PARADA 3 • VIAJÁ SEGURO</span>
+          <h2 style="margin:0;font-weight:700;font-size:28px;line-height:1.2;max-width:16ch">Antes de subir, sabés con quién viajás</h2>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);align-items:center">
+          <div role="tablist" style="flex:1 1 300px;display:flex;flex-direction:column;gap:10px;min-width:0">
+            <sc-for list="{{ feats }}" as="f" hint-placeholder-count="4">
+              <button role="tab" onClick="{{ f.pick }}" style="font:inherit;text-align:left;display:flex;flex-direction:column;gap:8px;padding:18px 22px;border-radius:24px;cursor:pointer;border:2px solid {{ f.border }};background:{{ f.bg }};color:#091E39">
+                <span style="display:flex;align-items:center;gap:12px">
+                  <span style="flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:{{ f.dotBg }};color:{{ f.dotFg }}">{{ f.n }}</span>
+                  <span style="font-size:22.4px;font-weight:700;line-height:1.2">{{ f.title }}</span>
+                </span>
+                <sc-if value="{{ f.active }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.5;color:#373E4A;padding-left:42px">{{ f.desc }}</span>
+                  <span style="display:block;margin-left:42px;height:4px;border-radius:999px;background:#DADADA;overflow:hidden"><span style="display:block;height:100%;border-radius:999px;background:#008C80;width:{{ f.progress }};transition:width .7s linear"></span></span>
+                </sc-if>
+              </button>
+            </sc-for>
+          </div>
+
+          <div aria-hidden="true" style="flex:0 0 auto;margin:0 auto;width:300px;height:610px;box-sizing:border-box;border-radius:48px;background:#091E39;padding:12px;box-shadow:0 30px 60px rgba(0,19,140,0.25)">
+            <div style="position:relative;width:100%;height:100%;border-radius:38px;background:#ffffff;overflow:hidden;display:flex;flex-direction:column;pointer-events:none;user-select:none">
+              <div style="height:40px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;font-weight:700;color:#091E39">
+                <span>9:41</span><span style="width:84px;height:22px;border-radius:999px;background:#091E39"></span><span style="display:flex;gap:3px;align-items:flex-end"><span style="width:3px;height:6px;background:#091E39;border-radius:1px"></span><span style="width:3px;height:9px;background:#091E39;border-radius:1px"></span><span style="width:3px;height:12px;background:#091E39;border-radius:1px"></span></span>
+              </div>
+              <div style="flex:none;display:flex;align-items:center;gap:8px;padding:8px 20px 12px;font-size:17px;font-weight:700;color:#00138C"><img src="assets/logo-viante.png" alt="" style="width:30px;height:auto;filter:brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(5000%) hue-rotate(235deg)"></img>{{ screenTitle }}</div>
+
+              <sc-if value="{{ f0 }}" hint-placeholder-val="{{ true }}">
+                <div style="flex:1;display:flex;flex-direction:column;gap:14px;padding:4px 20px 20px">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <span style="width:56px;height:56px;border-radius:50%;background:#00138C;color:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px">LF</span>
+                    <span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:700;font-size:17px;color:#091E39">Lourdes Ferrari</span><span style="font-size:13px;color:#373E4A">Ingeniería · UNLaM</span></span>
+                  </div>
+                  <sc-for list="{{ checks }}" as="c" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:{{ c.bg }};transition:background .4s">
+                      <span style="flex:none;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#ffffff;background:{{ c.dot }};transition:background .4s">{{ c.mark }}</span>
+                      <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:14px;font-weight:700;color:#091E39">{{ c.label }}</span><span style="font-size:12px;color:#373E4A">{{ c.state }}</span></span>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ verified }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;background:#008C80;color:#ffffff;font-weight:700;font-size:15px;padding:13px;border-radius:999px">✔ Perfil verificado</div>
+                  </sc-if>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ f1 }}" hint-placeholder-val="{{ false }}">
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <svg viewBox="0 0 276 230" style="width:100%;height:auto;display:block;background:#E1EAF4">
+                    <g stroke="#ffffff" stroke-width="2.5" fill="none"><path d="M0 40 L276 300"></path><path d="M0 120 L200 300"></path><path d="M60 0 L276 200"></path><path d="M150 0 L276 110"></path><path d="M0 200 L200 0"></path><path d="M60 230 L276 20"></path><path d="M0 90 L90 0"></path></g>
+                    <path d="M20 200 C 90 190, 130 110, 240 50" fill="none" stroke="#00408C" stroke-width="5" stroke-linecap="round"></path>
+                    <circle cx="240" cy="50" r="11" fill="#00138C"></circle>
+                    <g transform="translate(232.8 42.8) scale(0.6)" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 3.5 21 9Z"></path><path d="M6 9v8.5"></path><path d="M10 9v8.5"></path><path d="M14 9v8.5"></path><path d="M18 9v8.5"></path><path d="M2 21h20"></path></g>
+                    <circle cx="{{ carX }}" cy="{{ carY }}" r="14" fill="#008C80" fill-opacity="0.25"></circle>
+                    <circle cx="{{ carX }}" cy="{{ carY }}" r="7" fill="#008C80" stroke="#ffffff" stroke-width="3"></circle>
+                  </svg>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding:16px 20px 20px;border-radius:24px 24px 0 0;margin-top:-18px;background:#ffffff;position:relative">
+                    <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:700;font-size:16px;color:#091E39">Llegás 08:00</span><span style="font-size:13px;color:#373E4A">{{ eta }}</span></div>
+                    <div style="display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;padding:12px;border-radius:999px;color:#ffffff;background:{{ shareBg }};transform:scale({{ shareScale }});transition:background .2s,transform .2s">Compartir viaje en vivo</div>
+                    <sc-if value="{{ shared }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:#E3F3F1">
+                        <span style="width:34px;height:34px;border-radius:50%;background:#1A008C;color:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">M</span>
+                        <span style="display:flex;flex-direction:column;flex:1"><span style="font-size:14px;font-weight:700;color:#091E39">Mamá</span><span style="font-size:12px;color:#006B5F">Ve tu recorrido en vivo</span></span>
+                        <span style="font-size:13px;font-weight:700;color:#006B5F">✔</span>
+                      </div>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ f2 }}" hint-placeholder-val="{{ false }}">
+                <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding:4px 20px 20px">
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:16px;background:#EEF3F9">
+                    <span style="font-weight:700;font-size:15px;color:#091E39">Solo mujeres</span>
+                    <span style="width:46px;height:26px;border-radius:999px;padding:3px;box-sizing:border-box;display:flex;background:{{ toggleBg }};justify-content:{{ toggleJustify }};transition:background .3s"><span style="width:20px;height:20px;border-radius:50%;background:#ffffff"></span></span>
+                  </div>
+                  <span style="font-size:13px;font-weight:500;color:#373E4A">{{ tripsLabel }}</span>
+                  <sc-for list="{{ trips }}" as="t" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;border:2px solid #EEF0F3">
+                      <span style="width:38px;height:38px;border-radius:50%;background:{{ t.color }};color:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px">{{ t.ini }}</span>
+                      <span style="display:flex;flex-direction:column;flex:1;gap:1px"><span style="font-size:14px;font-weight:700;color:#091E39">{{ t.name }}</span><span style="font-size:12px;color:#373E4A">{{ t.role }} · llega {{ t.time }}</span></span>
+                      <span style="font-size:13px;font-weight:700;color:#00408C">★ {{ t.score }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ f3 }}" hint-placeholder-val="{{ false }}">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 20px 24px;text-align:center">
+                  <span style="width:76px;height:76px;border-radius:50%;background:#006B8C;color:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:26px">DS</span>
+                  <span style="font-weight:700;font-size:18px;line-height:1.3;color:#091E39">¿Cómo fue tu viaje con Damián?</span>
+                  <span style="display:flex;gap:6px">
+                    <sc-for list="{{ stars }}" as="st" hint-placeholder-count="5">
+                      <svg width="34" height="34" viewBox="0 0 24 24" style="transition:transform .2s;transform:scale({{ st.scale }})"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" fill="{{ st.fill }}" stroke="#00408C" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+                    </sc-for>
+                  </span>
+                  <sc-if value="{{ rated }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column;gap:10px;width:100%;margin-top:auto">
+                      <div style="background:#E3F3F1;color:#006B5F;font-weight:700;font-size:14px;padding:12px;border-radius:16px">¡Gracias! Damián también te califica.</div>
+                      <div style="display:flex;justify-content:space-between;font-size:13px;color:#373E4A;padding:0 6px"><span>Damián ★ 4,9</span><span>Vos ★ 4,8</span></div>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+        <a href="registrate.html" style="align-self:flex-start;background:#00408C;color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px" style-hover="background:#006B8C;color:#ffffff">Creá tu perfil verificado</a>
+      </div>
+    </section>
+  </div>
+
+  <section data-screen-label="Destino llegada" style="position:relative;background:#00138C;color:#ffffff;border-radius:clamp(32px,5vw,64px) clamp(32px,5vw,64px) 0 0;overflow:hidden">
+    <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;box-sizing:border-box;padding:clamp(56px,7vw,96px) clamp(12px,3vw,40px) 0 0;display:grid;grid-template-columns:clamp(72px,11vw,150px) minmax(0,1fr);gap:clamp(12px,3vw,40px)">
+      <div style="display:flex;justify-content:center;align-items:flex-start;padding-top:4px"><div data-stop="4" style="position:relative;z-index:1;width:46px;height:46px;border-radius:50%;background:#ffffff;border:5px solid #373E4A;display:flex;align-items:center;justify-content:center;color:#091E39;transition:background .3s,border-color .3s"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 3.5 21 9Z"></path><path d="M6 9v8.5"></path><path d="M10 9v8.5"></path><path d="M14 9v8.5"></path><path d="M18 9v8.5"></path><path d="M3.5 17.5h17"></path><path d="M2 21h20"></path></svg></div></div>
+      <div style="display:flex;flex-wrap:wrap;gap:32px clamp(28px,4vw,56px);align-items:stretch;min-width:0">
+      <div style="flex:1 1 340px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;align-items:flex-start;min-width:0">
+        <h2 style="margin:0;font-weight:700;font-size:40px;line-height:1.1;letter-spacing:-0.01em;max-width:15ch;text-wrap:balance;color:#ffffff">Llegaste. La próxima prepará el mate que vamos juntos <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-0.12em"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg></h2>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="registrate.html" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:#008C80;color:#ffffff;text-decoration:none;padding:14px 30px;border-radius:999px" style-hover="background:#006B8C;color:#ffffff"><span style="font-weight:700;font-size:18px">Busco lugar</span><span style="font-size:13px">Pasajero</span></a>
+          <a href="registrate.html" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:transparent;border:2px solid #ffffff;color:#ffffff;text-decoration:none;padding:12px 28px;border-radius:999px" style-hover="background:rgba(255,255,255,0.12);color:#ffffff"><span style="font-weight:700;font-size:18px">Ofrezco lugar</span><span style="font-size:13px">Conductor</span></a>
+        </div>
+      </div>
+      <div data-screen-label="Mapa en vivo" style="position:relative;z-index:2;flex:1.2 1 420px;max-width:600px;background:rgba(255,255,255,0.08);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border:1px solid rgba(255,255,255,0.25);border-radius:28px;padding:20px;display:flex;flex-direction:column;gap:14px;color:#ffffff">
+        <div style="position:relative;flex:1;min-height:280px;border-radius:20px;overflow:hidden">
+          <svg viewBox="0 10 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mapa ilustrativo de San Justo alrededor de la UNLaM con conductores en camino" style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,19,140,0.28);display:block">
+          <path d="M96 0 L168 0 L258 150 L252 186 L222 180 L168 129 Z" fill="#ffffff" fill-opacity="0.16"></path>
+          <path d="M123 180 L171 132 L222 180 L174 228 Z" fill="#ffffff" fill-opacity="0.07"></path>
+          <path d="M357 213 L372 201 L441 270 L429 282 Z" fill="#008C80" fill-opacity="0.55"></path>
+          <path d="M268 306 L290 300 L300 322 L278 330 Z" fill="#008C80" fill-opacity="0.55"></path>
+          <path d="M455 72 L470 86 L460 98 L446 84 Z" fill="#008C80" fill-opacity="0.55"></path>
+          <g stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" fill="none"><path d="M579.6 0.0 L600.0 19.0"></path><path d="M557.0 0.0 L600.0 40.0"></path><path d="M534.4 0.0 L600.0 61.0"></path><path d="M511.8 0.0 L600.0 82.0"></path><path d="M489.2 0.0 L600.0 103.0"></path><path d="M466.7 0.0 L600.0 124.0"></path><path d="M444.1 0.0 L600.0 145.0"></path><path d="M421.5 0.0 L600.0 166.0"></path><path d="M398.9 0.0 L600.0 187.0"></path><path d="M376.3 0.0 L600.0 208.0"></path><path d="M353.8 0.0 L600.0 229.0"></path><path d="M331.2 0.0 L600.0 250.0"></path><path d="M308.6 0.0 L600.0 271.0"></path><path d="M286.0 0.0 L600.0 292.0"></path><path d="M263.4 0.0 L600.0 313.0"></path><path d="M240.9 0.0 L600.0 334.0"></path><path d="M218.3 0.0 L600.0 355.0"></path><path d="M195.7 0.0 L600.0 376.0"></path><path d="M173.1 0.0 L581.7 380.0"></path><path d="M150.5 0.0 L559.1 380.0"></path><path d="M128.0 0.0 L536.6 380.0"></path><path d="M105.4 0.0 L514.0 380.0"></path><path d="M82.8 0.0 L491.4 380.0"></path><path d="M60.2 0.0 L468.8 380.0"></path><path d="M37.6 0.0 L446.2 380.0"></path><path d="M15.1 0.0 L423.7 380.0"></path><path d="M0.0 7.0 L401.1 380.0"></path><path d="M0.0 28.0 L378.5 380.0"></path><path d="M0.0 49.0 L355.9 380.0"></path><path d="M0.0 70.0 L333.3 380.0"></path><path d="M0.0 91.0 L310.8 380.0"></path><path d="M0.0 112.0 L288.2 380.0"></path><path d="M0.0 133.0 L265.6 380.0"></path><path d="M0.0 154.0 L243.0 380.0"></path><path d="M0.0 175.0 L220.4 380.0"></path><path d="M0.0 196.0 L197.8 380.0"></path><path d="M0.0 217.0 L175.3 380.0"></path><path d="M0.0 238.0 L152.7 380.0"></path><path d="M0.0 259.0 L130.1 380.0"></path><path d="M0.0 280.0 L107.5 380.0"></path><path d="M0.0 301.0 L84.9 380.0"></path><path d="M0.0 322.0 L62.4 380.0"></path><path d="M0.0 343.0 L39.8 380.0"></path><path d="M0.0 364.0 L17.2 380.0"></path><path d="M0.0 21.0 L22.1 0.0"></path><path d="M0.0 42.0 L44.2 0.0"></path><path d="M0.0 63.0 L66.3 -0.0"></path><path d="M0.0 84.0 L88.4 0.0"></path><path d="M0.0 105.0 L110.5 0.0"></path><path d="M0.0 126.0 L132.6 -0.0"></path><path d="M0.0 147.0 L154.7 0.0"></path><path d="M0.0 168.0 L176.8 0.0"></path><path d="M0.0 189.0 L198.9 0.0"></path><path d="M0.0 210.0 L221.1 0.0"></path><path d="M0.0 231.0 L243.2 0.0"></path><path d="M0.0 252.0 L265.3 -0.0"></path><path d="M0.0 273.0 L287.4 0.0"></path><path d="M0.0 294.0 L309.5 0.0"></path><path d="M0.0 315.0 L331.6 0.0"></path><path d="M0.0 336.0 L353.7 0.0"></path><path d="M0.0 357.0 L375.8 0.0"></path><path d="M0.0 378.0 L397.9 0.0"></path><path d="M20.0 380.0 L420.0 0.0"></path><path d="M42.1 380.0 L442.1 0.0"></path><path d="M64.2 380.0 L464.2 0.0"></path><path d="M86.3 380.0 L486.3 0.0"></path><path d="M108.4 380.0 L508.4 0.0"></path><path d="M130.5 380.0 L530.5 -0.0"></path><path d="M152.6 380.0 L552.6 0.0"></path><path d="M174.7 380.0 L574.7 0.0"></path><path d="M196.8 380.0 L596.8 0.0"></path><path d="M218.9 380.0 L600.0 18.0"></path><path d="M241.1 380.0 L600.0 39.0"></path><path d="M263.2 380.0 L600.0 60.0"></path><path d="M285.3 380.0 L600.0 81.0"></path><path d="M307.4 380.0 L600.0 102.0"></path><path d="M329.5 380.0 L600.0 123.0"></path><path d="M351.6 380.0 L600.0 144.0"></path><path d="M373.7 380.0 L600.0 165.0"></path><path d="M395.8 380.0 L600.0 186.0"></path><path d="M417.9 380.0 L600.0 207.0"></path><path d="M440.0 380.0 L600.0 228.0"></path><path d="M462.1 380.0 L600.0 249.0"></path><path d="M484.2 380.0 L600.0 270.0"></path><path d="M506.3 380.0 L600.0 291.0"></path><path d="M528.4 380.0 L600.0 312.0"></path><path d="M550.5 380.0 L600.0 333.0"></path><path d="M572.6 380.0 L600.0 354.0"></path><path d="M594.7 380.0 L600.0 375.0"></path></g>
+          <g fill="none" stroke="#ffffff" stroke-linecap="round">
+            <path d="M30 0 L600 530" stroke-opacity="0.38" stroke-width="5"></path>
+            <path d="M279 9 L600 308" stroke-opacity="0.38" stroke-width="5"></path>
+            <path d="M268 0 L285 141 L300 190" stroke-opacity="0.38" stroke-width="5"></path>
+            <path d="M0 409 L430 0" stroke-opacity="0.38" stroke-width="5"></path>
+            <path d="M330 168 L600 54" stroke-opacity="0.3" stroke-width="4"></path>
+            <path d="M440 380 L600 228" stroke-opacity="0.6" stroke-width="9"></path>
+            <path d="M162 0 L210 42 L237 99 L261 144 L300 180 L360 234 L474 324 L540 380" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="2 5"></path>
+          </g>
+          <text x="52" y="14" transform="rotate(43 52 14)" style="font-family:Ubuntu,sans-serif;font-size:10px;font-weight:500;fill:#ffffff;fill-opacity:0.85">Pres. Perón</text><text x="298" y="22" transform="rotate(43 298 22)" style="font-family:Ubuntu,sans-serif;font-size:10px;font-weight:500;fill:#ffffff;fill-opacity:0.85">Cnel. Brandsen</text><text x="272" y="40" transform="rotate(83 272 40)" style="font-family:Ubuntu,sans-serif;font-size:10px;font-weight:500;fill:#ffffff;fill-opacity:0.85">Av. de Mayo</text><text x="118" y="292" transform="rotate(-43.5 118 292)" style="font-family:Ubuntu,sans-serif;font-size:10px;font-weight:500;fill:#ffffff;fill-opacity:0.85">Florencio Varela</text><text x="520" y="300" transform="rotate(-43.5 520 300)" style="font-family:Ubuntu,sans-serif;font-size:11px;font-weight:500;fill:#ffffff;fill-opacity:0.85">Ruta 3</text>
+          <g fill="none" stroke="none">
+            <path data-route="0" d="M600 330 L339 87 L250 172"></path>
+            <path data-route="1" d="M600 54 L364 278 L250 172"></path>
+            <path data-route="2" d="M30 0 L230 155 L250 172"></path>
+            <path data-route="3" d="M62 350 L250 172"></path>
+            <path data-route="4" d="M268 0 L285 141 L250 172"></path>
+            <path data-route="5" d="M470 380 L364 278 L250 172"></path>
+          </g>
+          <g ref="{{ dotsRef }}"></g>
+          <circle cx="363" cy="242" r="5" fill="#ffffff" fill-opacity="0.9"></circle>
+          <text x="372" y="246" transform="rotate(0 372 246)" style="font-family:Ubuntu,sans-serif;font-size:10px;font-weight:500;fill:#ffffff;fill-opacity:0.85">San Justo</text>
+          <circle cx="250" cy="172" r="28" fill="#ffffff" fill-opacity="0.18"></circle>
+          <circle cx="250" cy="172" r="15" fill="#ffffff"></circle>
+          <g transform="translate(240.4 162.4) scale(0.8)" fill="none" stroke="#00138C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 3.5 21 9Z"></path><path d="M6 9v8.5"></path><path d="M10 9v8.5"></path><path d="M14 9v8.5"></path><path d="M18 9v8.5"></path><path d="M2 21h20"></path></g>
+          
+        </svg>
+          <span style="position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:8px;background:rgba(0,19,140,0.7);border:1px solid rgba(255,255,255,0.25);color:#ffffff;font-weight:700;font-size:12px;letter-spacing:0.08em;padding:6px 12px;border-radius:999px"><span style="width:9px;height:9px;border-radius:50%;background:#2FD3C3;box-shadow:0 0 0 4px rgba(47,211,195,0.25)"></span>EN VIVO</span>
+          <a href="registrate.html" style="position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:8px;background:#ffffff;color:#00138C;text-decoration:none;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;box-shadow:0 6px 16px rgba(0,19,140,0.3)" style-hover="background:#EEF3F9;color:#00138C">Registrate para ver quiénes son<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div data-screen-label="Destino foto" aria-hidden="true" style="position:relative;margin-top:calc(-1 * clamp(40px,6vw,110px));pointer-events:none">
+      <div style="position:relative;margin:0 auto;width:min(100%,1600px);aspect-ratio:1584/672;overflow:hidden">
+        <img src="assets/destino-mate.jpeg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></img>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,#00138C 0%,rgba(0,19,140,0.85) 12%,rgba(0,19,140,0.35) 26%,rgba(0,19,140,0) 38%,rgba(26,0,140,0) 80%,rgba(26,0,140,0.7) 92%,#1A008C 100%),linear-gradient(90deg,#00138C 0%,rgba(0,19,140,0) 8%,rgba(0,19,140,0) 92%,#00138C 100%)"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#1A008C;color:#ffffff">
+    <div style="max-width:1280px;margin:0 auto;box-sizing:border-box;padding:36px clamp(20px,5vw,64px);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+      <span style="display:flex;align-items:center;gap:10px;font-size:24px;font-weight:500"><img src="assets/logo-viante.png" alt="" style="width:44px;height:auto"></img>Viante</span>
+      <nav style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px;font-weight:500">
+        <a href="#" style="color:#ffffff;text-decoration:none" style-hover="color:#ffffff;text-decoration:underline">Buscar viaje</a>
+        <a href="#" style="color:#ffffff;text-decoration:none" style-hover="color:#ffffff;text-decoration:underline">Mis viajes</a>
+        <a href="#" style="color:#ffffff;text-decoration:none" style-hover="color:#ffffff;text-decoration:underline">Seguridad</a>
+        <a href="#" style="color:#ffffff;text-decoration:none" style-hover="color:#ffffff;text-decoration:underline">Ayuda</a>
+      </nav>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { time: '08:00', mode: 'Pasajero', feat: 0, sub: 0, reg: 0 };
+  SUBS = 9;
+  roadRef = React.createRef(); svgRef = React.createRef(); roadPath = React.createRef();
+  lanePath = React.createRef(); progPath = React.createRef(); carRef = React.createRef(); dotsRef = React.createRef();
+
+  componentDidMount() {
+    this.onScroll = () => { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = 0; this.update(); }); };
+    this.onResize = () => { this.build(); this.update(); };
+    window.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', this.onResize);
+    if (window.ResizeObserver && this.roadRef.current) { this.ro = new ResizeObserver(this.onResize); this.ro.observe(this.roadRef.current); }
+    setTimeout(this.onResize, 50);
+    this.seedDrivers();
+    const tick = ts => { this.animDots(ts); this.mapRaf = requestAnimationFrame(tick); };
+    this.mapRaf = requestAnimationFrame(tick);
+    this.flashTimer = setInterval(() => this.flash(), 3200);
+    this.regTimer = setInterval(() => this.setState(s => ({ reg: (s.reg + 1) % 5 })), 2800);
+    this.featTimer = setInterval(() => this.setState(s => s.sub + 1 >= this.SUBS ? { feat: (s.feat + 1) % 4, sub: 0 } : { sub: s.sub + 1 }), 750);
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.mapRaf); clearInterval(this.featTimer); clearInterval(this.regTimer); clearInterval(this.flashTimer);
+    window.removeEventListener('scroll', this.onScroll, { capture: true });
+    window.removeEventListener('resize', this.onResize);
+    this.ro && this.ro.disconnect();
+  }
+  driverCount() { return { '08:00': 12, '10:00': 7, '14:00': 9, '16:00': 5 }[this.state.time] || 6; }
+  seedDrivers() {
+    const g = this.dotsRef.current; if (!g) return;
+    const svg = g.ownerSVGElement;
+    this.routes = [...svg.querySelectorAll('[data-route]')];
+    this.routeLens = this.routes.map(r => r.getTotalLength());
+    while (g.firstChild) g.removeChild(g.firstChild);
+    this.drivers = Array.from({ length: this.driverCount() }, (_, i) => {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      const women = i === 2 || i === 7;
+      c.setAttribute('r', '6');
+      c.setAttribute('fill', women ? '#ffffff' : '#008C80');
+      c.setAttribute('stroke', women ? '#1A008C' : '#ffffff');
+      c.setAttribute('stroke-width', women ? '3' : '2.5');
+      g.appendChild(c);
+      return { el: c, route: i % this.routes.length, phase: (i * 0.37) % 1, speed: 0.014 + ((i * 7) % 5) * 0.003 };
+    });
+  }
+  animDots(ts) {
+    if (!this.drivers || !this.routes) return;
+    const t = ts / 1000;
+    this.drivers.forEach(d => {
+      const k = (d.phase + t * d.speed) % 1;
+      const pt = this.routes[d.route].getPointAtLength(this.routeLens[d.route] * k);
+      d.el.setAttribute('cx', pt.x); d.el.setAttribute('cy', pt.y);
+      d.el.setAttribute('opacity', k > 0.9 ? (1 - k) * 10 : Math.min(1, k * 10));
+    });
+  }
+  build() {
+    const root = this.roadRef.current, svg = this.svgRef.current, path = this.roadPath.current;
+    if (!root || !svg || !path) return;
+    const rb = root.getBoundingClientRect();
+    const W = svg.getBoundingClientRect().width, x0 = W / 2, amp = W * 0.32;
+    const stops = [...(root.parentElement || root).querySelectorAll('[data-stop]')];
+    this.stopEls = stops;
+    const ys = stops.map(el => { const b = el.getBoundingClientRect(); return b.top + b.height / 2 - rb.top; });
+    const pts = [0, ...ys];
+    let d = `M ${x0} ${pts[0]}`;
+    for (let i = 1; i < pts.length; i++) {
+      const a = pts[i - 1], b = pts[i], s = i % 2 ? 1 : -1, cx = x0 + s * amp;
+      d += ` C ${cx} ${a + (b - a) * 0.3}, ${cx} ${a + (b - a) * 0.7}, ${x0} ${b}`;
+    }
+    [this.roadPath, this.lanePath, this.progPath].forEach(r => r.current && r.current.setAttribute('d', d));
+    this.len = path.getTotalLength();
+    this.stopLens = ys.map(y => { let lo = 0, hi = this.len; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; path.getPointAtLength(m).y < y ? lo = m : hi = m; } return lo; });
+    this.progPath.current.style.strokeDasharray = `${this.len} ${this.len}`;
+  }
+  update() {
+    const root = this.roadRef.current, path = this.roadPath.current, car = this.carRef.current;
+    if (!root || !path || !car || !this.len) return;
+    const rb = root.getBoundingClientRect(), vh = window.innerHeight;
+    const end = this.stopLens[this.stopLens.length - 1] || this.len;
+    const lastY = path.getPointAtLength(end).y;
+    const p = Math.max(0, Math.min(1, (vh * 0.55 - rb.top) / lastY));
+    const l = end * p, pt = path.getPointAtLength(l), nx = path.getPointAtLength(Math.min(this.len, l + 4));
+    const ang = Math.max(-14, Math.min(14, -Math.atan2(nx.x - pt.x, nx.y - pt.y) * 57.3 * 0.5));
+    car.style.transform = `translate(${pt.x - car.offsetWidth / 2}px, ${pt.y - car.offsetHeight * 0.6}px) rotate(${ang}deg)`;
+    this.progPath.current.style.strokeDashoffset = `${this.len - l}`;
+    const lit = p > 0.005 && p < 0.995 ? '1' : '0';
+    this.parked = p <= 0.005;
+    car.querySelectorAll('[data-light]').forEach(el => { el.style.opacity = lit; });
+    const belt = car.querySelector('[data-belt]');
+    if (belt && this.stopLens[2] != null) { const on = l >= this.stopLens[2] - 2; belt.style.opacity = on ? '1' : '0'; belt.querySelectorAll('[data-strap]').forEach(s => { s.style.strokeDashoffset = on ? '0' : '60'; }); }
+    const seat = car.querySelector('[data-seat]');
+    if (seat && this.stopLens[1] != null) seat.style.opacity = l >= this.stopLens[1] - 2 ? '0' : '1';
+    (this.stopEls || []).forEach((el, i) => {
+      const on = l >= this.stopLens[i] - 2;
+      el.style.background = on ? '#008C80' : '#ffffff';
+      el.style.borderColor = on ? '#00408C' : '#373E4A';
+      el.style.color = on ? '#ffffff' : '#091E39';
+    });
+  }
+  phoneVals() {
+    const s = this.state, k = s.sub, F = [
+      ['Perfil verificado', 'Constancia de alumno regular, mail de la facu y documentación al día del conductor.', 'Mi perfil'],
+      ['Compartí tu viaje en vivo', 'Tu familia te espera sabiendo siempre por dónde vas.', 'Viaje en curso'],
+      ['Solo mujeres', 'Una opción para viajar solo entre mujeres, como conductora o como pasajera.', 'Buscar viaje'],
+      ['Calificaciones', 'Después de cada viaje, conductores y pasajeros se califican. Todos tienen su puntaje.', 'Calificá tu viaje'],
+    ];
+    const t = Math.min(1, k / (this.SUBS - 1)), u = 1 - t;
+    const bz = (a, b, c, d) => u*u*u*a + 3*u*u*t*b + 3*u*t*t*c + t*t*t*d;
+    const allTrips = [['DM','Diego M.','Conductor','07:50','4,7','#373E4A',false],['MG','Mile G.','Conductora','07:55','4,9','#006B8C',true],['PR','Patricio R.','Conductor','08:00','4,8','#00408C',false],['PP','Pame P.','Conductora','08:05','4,9','#1A008C',true],['NV','Noe V.','Conductora','08:10','4,8','#008C80',true]];
+    const women = k >= 3;
+    const stars = Math.max(0, Math.min(5, k - 1));
+    return {
+      feats: F.map(([title, desc], i) => ({ n: i + 1, title, desc, active: s.feat === i,
+        bg: s.feat === i ? '#F2F6FB' : '#ffffff', border: s.feat === i ? '#00408C' : '#EEF0F3',
+        dotBg: s.feat === i ? '#00408C' : '#EEF3F9', dotFg: s.feat === i ? '#ffffff' : '#00408C',
+        progress: Math.round((k + 1) / this.SUBS * 100) + '%', pick: () => this.setState({ feat: i, sub: 0 }) })),
+      screenTitle: F[s.feat][2], f0: s.feat === 0, f1: s.feat === 1, f2: s.feat === 2, f3: s.feat === 3,
+      checks: ['Constancia de alumno regular', 'Mail de la facu', 'Documentación al día'].map((label, i) => { const ok = k >= (i + 1) * 2; return { label, mark: ok ? '✔' : '', state: ok ? 'Verificado' : 'Pendiente', dot: ok ? '#008C80' : '#DADADA', bg: ok ? '#E3F3F1' : '#F6F8FB' }; }),
+      verified: k >= 7,
+      carX: bz(20, 90, 130, 240).toFixed(1), carY: bz(200, 190, 110, 50).toFixed(1),
+      eta: `${Math.max(1, Math.round(12 * (1 - t)))} min`,
+      shareBg: k >= 3 ? '#006B8C' : '#00408C', shareScale: k === 3 ? 0.95 : 1, shared: k >= 4,
+      toggleBg: women ? '#008C80' : '#DADADA', toggleJustify: women ? 'flex-end' : 'flex-start',
+      tripsLabel: women ? '3 conductoras llegan a las 08:00' : '5 viajes llegan a las 08:00',
+      trips: allTrips.filter(x => !women || x[6]).slice(0, 4).map(([ini, name, role, time, score, color]) => ({ ini, name, role, time, score, color })),
+      stars: [0,1,2,3,4].map(i => ({ fill: i < stars ? '#008C80' : '#ffffff', scale: i === stars - 1 ? 1.15 : 1 })),
+      rated: k >= 7,
+    };
+  }
+  flash() {
+    const car = this.carRef.current;
+    if (!car || this.parked === false) return;
+    const lights = [...car.querySelectorAll('[data-light]')];
+    const set = v => lights.forEach(el => { el.style.transition = 'opacity .08s'; el.style.opacity = v; });
+    [[0, '1'], [160, '0'], [320, '1'], [480, '0']].forEach(([t, v]) => setTimeout(() => { if (this.parked !== false) set(v); }, t));
+    setTimeout(() => lights.forEach(el => { el.style.transition = 'opacity .35s ease'; }), 600);
+  }
+  regVals() {
+    const r = Math.min(this.state.reg, 3), out = {};
+    [0, 1, 2].forEach(i => {
+      const act = i === r, done = i < r;
+      out['r' + i] = { isActive: act, isDone: done, isPending: !act && !done, showContent: act || done, contentOpacity: done ? 0.35 : 1, contentSat: done ? 0.3 : 1,
+        border: act ? '#00408C' : done ? '#008C80' : '#EEF0F3',
+        dotBg: done ? '#008C80' : act ? '#00408C' : '#EEF3F9', dotFg: done || act ? '#ffffff' : '#7A8494',
+        mark: done ? '✔' : String(i + 1), title: act || done ? '#091E39' : '#7A8494',
+        pick: () => { clearInterval(this.regTimer); this.setState({ reg: i }); this.regTimer = setInterval(() => this.setState(s => ({ reg: (s.reg + 1) % 5 })), 2800); } };
+    });
+    return out;
+  }
+  renderVals() {
+    const s = this.state, pas = s.mode === 'Pasajero';
+    const on = { bg: '#008C80', fg: '#ffffff', border: '#008C80' }, off = { bg: 'transparent', fg: '#ffffff', border: 'rgba(255,255,255,0.4)' };
+    return {
+      ...this.regVals(),
+      ...this.phoneVals(),
+      roadRef: this.roadRef, svgRef: this.svgRef, roadPath: this.roadPath, lanePath: this.lanePath,
+      progPath: this.progPath, carRef: this.carRef, dotsRef: this.dotsRef,
+      count: this.driverCount(),
+      times: ['08:00', '10:00', '14:00', '16:00'].map(label => ({ label, ...(s.time === label ? on : off), pick: () => this.setState({ time: label }, () => this.seedDrivers()) })),
+      modes: [['Pasajero', 'Busco lugar'], ['Conductor', 'Ofrezco lugar']].map(([title, sub]) => ({ title, sub,
+        bg: s.mode === title ? '#00138C' : 'transparent', fg: s.mode === title ? '#ffffff' : '#00138C',
+        pick: () => this.setState({ mode: title }) })),
+      ill: pas
+        ? { cta: 'Registrate para buscar', match: { kicker: 'PASA POR TU ZONA', pin: 'Vos', ini: 'DM', color: '#373E4A', title: 'Diego pasa por tu zona a las 07:42', meta: ['3 cuadras de vos', 'Llega a la UNLaM 08:00', '★ 4,7'] }, steps: [
+            { n: 1, q: '¿Vas o volvés?', isChips: true, isPill: false, chips: [{ label: 'Voy a la facu', bg: '#008C80', border: '#008C80' }, { label: 'Vuelvo a casa', bg: 'transparent', border: '#373E4A' }] },
+            { n: 2, q: 'Curso a las', isChips: true, isPill: false, chips: [{ label: '08:00', bg: '#008C80', border: '#008C80' }, { label: '10:00', bg: 'transparent', border: '#373E4A' }, { label: '14:00', bg: 'transparent', border: '#373E4A' }, { label: '18:00', bg: 'transparent', border: '#373E4A' }] },
+            { n: 3, q: '¿Desde dónde salís?', isPill: true, isChips: false, pill: 'Ramos Mejía' },
+          ] }
+        : { cta: 'Registrate para ofrecer lugar', match: { kicker: 'VAN PARA TU LADO', pin: 'Pame', ini: 'PP', color: '#1A008C', title: 'Pame te espera en Av. de Mayo a las 07:35', meta: ['2 estudiantes en tu recorrido', 'Desvío de 2 min', '★ 4,9'] }, steps: [
+            { n: 1, q: 'Destino', isPill: true, isChips: false, pill: 'UNLaM · San Justo' },
+            { n: 2, q: 'Origen', isPill: true, isChips: false, pill: 'Ramos Mejía' },
+            { n: 3, q: 'Salgo de casa a las', isChips: true, isPill: false, chips: [{ label: '07:15', bg: '#008C80', border: '#008C80' }, { label: '09:15', bg: 'transparent', border: '#373E4A' }, { label: '13:15', bg: 'transparent', border: '#373E4A' }, { label: '17:15', bg: 'transparent', border: '#373E4A' }] },
+          ] },
+    };
+  }
+}
+</script>
+</body>
+</html>
